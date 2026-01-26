@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot name="scorpio" xmlns:xacro="http://ros.org/wiki/xacro">
+	
+  	<xacro:arg name="camera_type_tel"	default="astrapro"/>
+
+	<xacro:property name="camera"	value="$(arg camera_type_tel)"/>
+
+  	<xacro:arg name="lidar_type_tel"	default="ydlidar_g6"/>
+
+	<xacro:property name="lidar"	value="$(arg lidar_type_tel)"/>
+
+  	<xacro:include filename="$(find scorpio_description)/urdf/base/car_base.urdf"/>  	
+  		
+	<xacro:if value="${lidar == 'ydlidar_g2'}">
+		<xacro:include filename="$(find ydlidar_ros2_driver)/urdf/ydlidar.urdf" />
+	</xacro:if>
+
+	<xacro:if value="${lidar == 'ydlidar_g4'}">
+		<xacro:include filename="$(find ydlidar_ros2_driver)/urdf/ydlidar.urdf" />
+	</xacro:if>
+
+	<xacro:if value="${lidar == 'ydlidar_g6'}">
+		<xacro:include filename="$(find ydlidar_ros2_driver)/urdf/ydlidar.urdf" />
+	</xacro:if>
+
+	<xacro:if value="${camera == 'astrapro' or camera == 'astra'}">
+		<xacro:include filename="$(find scorpio_description)/urdf/sensors/scorpio_$(arg camera_type_tel).urdf"/>
+	</xacro:if>
+
+	<xacro:if value="${camera == 'd435'}">
+		<xacro:include filename="$(find realsense2_description)/urdf/scorpio_d435_camera.urdf.xacro"/>
+	</xacro:if>
+
+
+</robot>

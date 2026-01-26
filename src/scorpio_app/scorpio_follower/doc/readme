@@ -1,0 +1,5 @@
+1.连接摄像头和地盘的USB线至笔记本
+2.打开终端（Ctrl+Alt+T）,执行以下命令：
+  cd ~/scorpio/src/scorpio_app/scorpio_follower/launch/scorpio
+  ./follow_run.sh
+3.将笔记本放置scorpio的卡槽上，人站在scorpio正前方，scorpio就可以跟着你了

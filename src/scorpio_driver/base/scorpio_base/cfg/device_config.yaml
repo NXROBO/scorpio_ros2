@@ -1,0 +1,8 @@
+scorpio_base_node:
+  ros__parameters:
+    motor_angle_offset: -10
+    max_motor_angle_offset: 150
+    min_motor_angle_offset: -150
+    motor_type: "HY"      #电机型号："HW" 或者 "JZD"
+    保存电机配置: False
+    
