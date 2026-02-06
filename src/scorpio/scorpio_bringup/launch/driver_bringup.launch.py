@@ -23,6 +23,7 @@ from launch.conditions import IfCondition, LaunchConfigurationEquals
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node, PushRosNamespace
+from launch.actions import TimerAction
 
 
 def generate_launch_description():
@@ -129,12 +130,16 @@ def generate_launch_description():
             condition=IfCondition(start_camera),
             launch_arguments={'dp_rgist': dp_rgist,}.items()),
 
+    ])
+
+    bringup_lidar_group = GroupAction([
+
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(lidar_driver_transfer_dir, 'launch',
                                                        'start_lidar.launch.py')),
             condition=IfCondition(start_lidar)),
     ])
-
+    scorpio_delay_lidar_action = TimerAction(period=3.0, actions=[bringup_lidar_group])
 
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -153,6 +158,7 @@ def generate_launch_description():
     # Add the actions to launch all of the navigation nodes
     ld.add_action(bringup_cmd_group)
     ld.add_action(rviz_node)
+    ld.add_action(scorpio_delay_lidar_action)
     
 
     return ld
